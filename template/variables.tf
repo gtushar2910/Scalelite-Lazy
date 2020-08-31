@@ -10,7 +10,7 @@ variable "aws_region" {
 
 variable "key_name" {
   description = "Name for your SSH public key"
-  default     = "bigbluebutton"
+  default     = "Wordpress-aws1"
 }
 
 variable "bigbluebutton_instance_type" {

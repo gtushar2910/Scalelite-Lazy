@@ -13,11 +13,6 @@ variable "key_name" {
   default     = "bigbluebutton"
 }
 
-variable "key_path" {
-  description = "Path to your SSH public key"
-  default     = "~/.ssh/id_rsa.pub"
-}
-
 variable "bigbluebutton_security_group_name" {
   description = "Name for bigbluebutton security group"
   default     = "bigbluebutton-security-group"

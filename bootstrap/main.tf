@@ -5,15 +5,8 @@ terraform {
 provider "aws" {
   profile = var.aws_profile
   region  = var.aws_region
-}
-
-resource "aws_key_pair" "ssh_key" {
-  key_name   = var.key_name
-  public_key = file(var.key_path)
-
-  tags = {
-    terraform = true
-  }
+  access_key =  "AKIAJJNKYL2SBSWZQTSA"
+  secret_key =  "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"
 }
 
 resource "aws_security_group" "bigbluebutton" {
