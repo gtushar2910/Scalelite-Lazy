@@ -41,6 +41,7 @@ variable "region" {
   description = "region"
 }
 
+
 data "aws_route53_zone" "bigbluebutton" {
   name = var.domain_name
 }
@@ -92,28 +93,22 @@ resource "aws_instance" "bigbluebutton" {
   }
 }
 
-# resource "aws_spot_instance_request" "BBBServer-Spot" {
+# resource "aws_spot_instance_request" "bigbluebutton" {
 
-#   ami           = var.ami
-#   instance_type = var.instance_type
-#   availability_zone = var.availability_zone
-#   key_name = var.key_name
+#   ami                             = var.aws_ami
+#   instance_type                   = var.instance_type
+#   #availability_zone               = var.availability_zone
+#   key_name                        = var.key_name
+#   security_groups                 = [var.security_group_name]
 #   spot_price                      = var.spot_price
 #   wait_for_fulfillment            = "true"
 #   spot_type                       = "one-time"
 #   instance_interruption_behaviour = "terminate"
-
-#   network_interface {
-#     device_index = 0
-#     network_interface_id = aws_network_interface.web-server_nic.id 
-#     }
-
-#     user_data = data.template_file.script.rendered
-
-#        tags = {
-#       Name = "BigBlueButton_Server"
-#     }
-#     }
+#   user_data = data.template_file.script.rendered
+#   tags = {
+#     terraform = true
+#   }
+# }
 
 output "private_ip" {
   value = aws_instance.bigbluebutton.private_ip

@@ -23,6 +23,7 @@ module "bigbluebutton_instance" {
   volume_size         = var.bigbluebutton_volume_size
   region              = var.region
   email               = var.email
+  
 }
 
 module "scalelite_instance" {

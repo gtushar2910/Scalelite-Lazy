@@ -15,7 +15,7 @@ variable "key_name" {
 
 variable "bigbluebutton_instance_type" {
   description = "EC2 instance type (bigbluebutton)"
-  default     = "t2.large"
+  default     = "t3.xlarge"
 }
 
 variable "bigbluebutton_aws_ami" {
@@ -100,4 +100,9 @@ variable "email" {
 
 variable "region" {
   description = "region"
+}
+
+
+variable "spot_price" {
+  description = "spot price"
 }

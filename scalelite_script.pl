@@ -4,7 +4,6 @@ sudo su - root
 add-apt-repository universe
 add-apt-repository multiverse
 apt-get update
-git clone git@github.com:whatever folder-name
 git clone https://github.com/aakatev/scalelite-run.git /scalelite-run
 chmod 0744 /scalelite-run/init-letsencrypt.sh
 touch /scalelite-run/.env
@@ -12,5 +11,15 @@ echo "SECRET_KEY_BASE=${secret_key_base}" >> /scalelite-run/.env
 echo "LOADBALANCER_SECRET=${scalelite_secret}" >> /scalelite-run/.env
 echo "URL_HOST=${scalelite_url}" >> /scalelite-run/.env
 echo "NGINX_SSL=${nginx_ssl}" >> /scalelite-run/.env
-cd /scalelite-Run
-sh init-letsencrypt.sh
+apt install -y apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+apt update
+apt install -y docker-ce
+curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+cd /scalelite-run
+./init-letsencrypt.sh
+docker-compose up -d
+docker exec -i scalelite-api bundle exec rake db:setup
