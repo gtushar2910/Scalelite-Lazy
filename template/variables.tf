@@ -77,3 +77,27 @@ variable "scalelite_volume_size" {
   description = "Volume size in GiB (scalelite)"
   default     = 50
 }
+
+variable "scalelite_url" {
+  description = "scalelite_url"
+}
+
+variable "secret_key_base" {
+  description = "secret_key_base"
+}
+
+variable "scalelite_secret" {
+  description = "scalelite_secret"
+}
+
+variable "nginx_ssl" {
+  description = "nginx_ssl"
+}
+
+variable "email" {
+  description = "email"
+}
+
+variable "region" {
+  description = "region"
+}

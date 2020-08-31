@@ -14,3 +14,6 @@
 config*.json
 token.txt
 id_rsa
+access_key
+secret_key
+shared_secret

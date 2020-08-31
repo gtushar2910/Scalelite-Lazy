@@ -5,8 +5,8 @@ terraform {
 provider "aws" {
   profile = var.aws_profile
   region  = var.aws_region
-  access_key =  "AKIAJJNKYL2SBSWZQTSA"
-  secret_key =  "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"
+  access_key =  file("../access_key")
+  secret_key =  file("../secret_key")
 }
 
 resource "aws_security_group" "bigbluebutton" {

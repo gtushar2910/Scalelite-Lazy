@@ -33,6 +33,23 @@ variable "volume_size" {
   type        = number
 }
 
+variable "scalelite_url" {
+  description = "scalelite_url"
+}
+
+variable "secret_key_base" {
+  description = "secret_key_base"
+}
+
+variable "scalelite_secret" {
+  description = "scalelite_secret"
+}
+
+variable "nginx_ssl" {
+  description = "nginx_ssl"
+}
+
+
 data "aws_route53_zone" "scalelite" {
   name = var.domain_name
 }
@@ -54,6 +71,16 @@ resource "aws_eip" "scalelite" {
   }
 }
 
+data "template_file" "script" {
+  template = "${file("../scalelite_script.pl")}"
+  vars = {
+    scalelite_url = var.scalelite_url
+    secret_key_base = var.secret_key_base
+    scalelite_secret = var.scalelite_secret
+    nginx_ssl = var.nginx_ssl
+  }
+}
+
 resource "aws_instance" "scalelite" {
   instance_type = var.instance_type
   ami           = var.aws_ami
@@ -61,11 +88,14 @@ resource "aws_instance" "scalelite" {
   key_name        = var.key_name
   security_groups = [var.security_group_name]
 
+    user_data = data.template_file.script.rendered
+
   ebs_block_device {
     device_name = "/dev/sda1"
     volume_type = "gp2"
     volume_size = var.volume_size
   }
+
 
   tags = {
     terraform = true

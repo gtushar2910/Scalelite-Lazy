@@ -3,10 +3,10 @@ terraform {
 }
 
 provider "aws" {
-  profile = var.aws_profile
-  region  = var.aws_region
-   access_key =  "AKIAJJNKYL2SBSWZQTSA"
-  secret_key =  "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"
+  profile    = var.aws_profile
+  region     = var.aws_region
+  access_key = file("../access_key")
+  secret_key = file("../secret_key")
 }
 
 module "bigbluebutton_instance" {
@@ -21,6 +21,8 @@ module "bigbluebutton_instance" {
   domain_name         = var.bigbluebutton_domain_name
   subdomain_name      = "${var.bigbluebutton_subdomain_name}-${count.index}"
   volume_size         = var.bigbluebutton_volume_size
+  region              = var.region
+  email               = var.email
 }
 
 module "scalelite_instance" {
@@ -33,4 +35,8 @@ module "scalelite_instance" {
   domain_name         = var.scalelite_domain_name
   subdomain_name      = var.scalelite_subdomain_name
   volume_size         = var.scalelite_volume_size
+  secret_key_base     = var.secret_key_base
+  scalelite_secret    = var.scalelite_secret
+  scalelite_url       = var.scalelite_url
+  nginx_ssl           = var.nginx_ssl
 }

@@ -1,6 +1,6 @@
-scalelite_url: lb.example.com
-bigbluebutton_url: test.example.com
-secret_key_base: secret
-scalelite_secret: super-secret
+scalelite_url: scalelite.triple5.in
+bigbluebutton_url: bbb.triple5.in
+secret_key_base: 21c0d02d41f3dcb6c7b56943b9ae5047164193f3fa99eabb38ab196e833ebd111159a7c7f0881f51465e92e425845d77324b0f09e9aad58285a088f8e21e9978
+scalelite_secret: 4eb0de98aa83c661a58a30b2f69889ef0096500c1fcf09eb50ed4b854633517b
 nginx_ssl: true
-email: admin@mail.com
+email: info@escet.live

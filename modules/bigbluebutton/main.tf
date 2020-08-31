@@ -33,6 +33,14 @@ variable "volume_size" {
   type        = number
 }
 
+variable "email" {
+  description = "Email"
+}
+
+variable "region" {
+  description = "region"
+}
+
 data "aws_route53_zone" "bigbluebutton" {
   name = var.domain_name
 }
@@ -54,12 +62,24 @@ resource "aws_eip" "bigbluebutton" {
   }
 }
 
+data "template_file" "script" {
+  template = "${file("../bbb_script.pl")}"
+  vars = {
+    region        = var.region
+    url           = "${var.subdomain_name}.${var.domain_name}"
+    email         = var.email
+    shared_secret = file("../shared_secret")
+  }
+}
+
 resource "aws_instance" "bigbluebutton" {
   instance_type = var.instance_type
   ami           = var.aws_ami
 
   key_name        = var.key_name
   security_groups = [var.security_group_name]
+
+  user_data = data.template_file.script.rendered
 
   ebs_block_device {
     device_name = "/dev/sda1"
@@ -71,6 +91,29 @@ resource "aws_instance" "bigbluebutton" {
     terraform = true
   }
 }
+
+# resource "aws_spot_instance_request" "BBBServer-Spot" {
+
+#   ami           = var.ami
+#   instance_type = var.instance_type
+#   availability_zone = var.availability_zone
+#   key_name = var.key_name
+#   spot_price                      = var.spot_price
+#   wait_for_fulfillment            = "true"
+#   spot_type                       = "one-time"
+#   instance_interruption_behaviour = "terminate"
+
+#   network_interface {
+#     device_index = 0
+#     network_interface_id = aws_network_interface.web-server_nic.id 
+#     }
+
+#     user_data = data.template_file.script.rendered
+
+#        tags = {
+#       Name = "BigBlueButton_Server"
+#     }
+#     }
 
 output "private_ip" {
   value = aws_instance.bigbluebutton.private_ip
