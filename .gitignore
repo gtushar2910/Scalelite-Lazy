@@ -17,3 +17,4 @@ id_rsa
 access_key
 secret_key
 shared_secret
+template/.terraform.tfstate.lock.info
