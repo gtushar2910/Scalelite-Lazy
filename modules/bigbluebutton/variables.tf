@@ -60,3 +60,7 @@ variable "private_ip_instance"{
 variable "availability_zone" {
   description = "availability_zone"
 }
+
+variable "subnet_id"{
+  description = "subnet_id"
+}

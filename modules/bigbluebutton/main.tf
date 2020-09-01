@@ -25,7 +25,7 @@ resource "aws_eip" "bigbluebutton" {
   vpc                       = true
   network_interface         = var.bbb_nic
   associate_with_private_ip = var.private_ip_instance
-  depends_on = [var.gw]
+  depends_on                = [var.gw]
 }
 
 data "template_file" "script" {
@@ -58,18 +58,23 @@ data "template_file" "script" {
 #   }
 # }
 
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_spot_instance_request.bigbluebutton.id
+  allocation_id = aws_eip.bigbluebutton.id
+}
+
 resource "aws_spot_instance_request" "bigbluebutton" {
 
   ami                             = var.aws_ami
   instance_type                   = var.instance_type
   availability_zone               = var.availability_zone
   key_name                        = var.key_name
-  security_groups                 = [var.security_group_name]
+  subnet_id                       = var.subnet_id
   spot_price                      = var.spot_price
   wait_for_fulfillment            = "true"
   spot_type                       = "one-time"
   instance_interruption_behaviour = "terminate"
-  user_data = data.template_file.script.rendered
+  user_data                       = data.template_file.script.rendered
   tags = {
     terraform = true
   }

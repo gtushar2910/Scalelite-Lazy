@@ -23,6 +23,7 @@ module "bigbluebutton_instance" {
   count               = var.bigbluebutton_count
   key_name            = var.key_name
   availability_zone   = var.availability_zone
+  subnet_id           = module.bootstrap.subnet_id
   security_group_name = var.bigbluebutton_security_group_name
   instance_type       = var.bigbluebutton_instance_type
   aws_ami             = var.bigbluebutton_aws_ami
