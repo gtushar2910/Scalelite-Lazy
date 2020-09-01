@@ -57,6 +57,7 @@ resource "aws_network_interface" "scalelite_nic" {
 resource "aws_security_group" "bigbluebutton" {
   name        = var.bigbluebutton_security_group_name
   description = "Security group for bigbluebutton server"
+  vpc_id      = aws_vpc.prod-vpc.id
 
   ingress {
     from_port   = 22
@@ -101,6 +102,7 @@ resource "aws_security_group" "bigbluebutton" {
 resource "aws_security_group" "scalelite" {
   name        = var.scalelite_security_group_name
   description = "Security group for scalelite server"
+  vpc_id      = aws_vpc.prod-vpc.id
 
   ingress {
     from_port   = 22
