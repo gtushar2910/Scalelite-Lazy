@@ -1,14 +1,3 @@
-terraform {
-  required_version = ">=0.13.0"
-}
-
-provider "aws" {
-  profile = var.aws_profile
-  region  = var.aws_region
-  access_key =  file("../access_key")
-  secret_key =  file("../secret_key")
-}
-
 resource "aws_vpc" "prod-vpc" {
   cidr_block = "10.0.0.0/16"
    tags = {

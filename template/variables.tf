@@ -106,3 +106,16 @@ variable "region" {
 variable "spot_price" {
   description = "spot price"
 }
+
+variable "private_ip_instances"{
+  description = "Privat IP Addresses"
+  type = list(string)
+}
+
+variable "subnet_prefix"{
+  description = "subnet_prefix"
+}
+
+variable "availability_zone"{
+  description = "availability_zone"
+}

@@ -1,45 +1,3 @@
-variable "instance_type" {
-  description = "EC2 instance type"
-  type        = string
-}
-
-variable "aws_ami" {
-  description = "EC2 instance AMI"
-  type        = string
-}
-
-variable "security_group_name" {
-  description = "Name for security group"
-  type        = string
-}
-
-variable "domain_name" {
-  description = "Server domain name"
-  type        = string
-}
-
-variable "subdomain_name" {
-  description = "Server subdomain name"
-  type        = string
-}
-
-variable "key_name" {
-  description = "Name for your SSH public key"
-  type        = string
-}
-
-variable "volume_size" {
-  description = "Volume size in GiB"
-  type        = number
-}
-
-variable "email" {
-  description = "Email"
-}
-
-variable "region" {
-  description = "region"
-}
 
 
 data "aws_route53_zone" "bigbluebutton" {
@@ -54,13 +12,20 @@ resource "aws_route53_record" "bigbluebutton" {
   records = [aws_eip.bigbluebutton.public_ip]
 }
 
-resource "aws_eip" "bigbluebutton" {
-  instance = aws_instance.bigbluebutton.id
-  vpc      = true
+# resource "aws_eip" "bigbluebutton" {
+#   instance = aws_instance.bigbluebutton.id
+#   vpc      = true
 
-  tags = {
-    terraform = true
-  }
+#   tags = {
+#     terraform = true
+#   }
+# }
+
+resource "aws_eip" "bigbluebutton" {
+  vpc                       = true
+  network_interface         = var.bbb_nic
+  associate_with_private_ip = var.private_ip_instance
+  depends_on = [var.gw]
 }
 
 data "template_file" "script" {
@@ -73,45 +38,45 @@ data "template_file" "script" {
   }
 }
 
-resource "aws_instance" "bigbluebutton" {
-  instance_type = var.instance_type
-  ami           = var.aws_ami
+# resource "aws_instance" "bigbluebutton" {
+#   instance_type = var.instance_type
+#   ami           = var.aws_ami
 
-  key_name        = var.key_name
-  security_groups = [var.security_group_name]
+#   key_name        = var.key_name
+#   security_groups = [var.security_group_name]
 
-  user_data = data.template_file.script.rendered
-
-  ebs_block_device {
-    device_name = "/dev/sda1"
-    volume_type = "gp2"
-    volume_size = var.volume_size
-  }
-
-  tags = {
-    terraform = true
-  }
-}
-
-# resource "aws_spot_instance_request" "bigbluebutton" {
-
-#   ami                             = var.aws_ami
-#   instance_type                   = var.instance_type
-#   #availability_zone               = var.availability_zone
-#   key_name                        = var.key_name
-#   security_groups                 = [var.security_group_name]
-#   spot_price                      = var.spot_price
-#   wait_for_fulfillment            = "true"
-#   spot_type                       = "one-time"
-#   instance_interruption_behaviour = "terminate"
 #   user_data = data.template_file.script.rendered
+
+#   ebs_block_device {
+#     device_name = "/dev/sda1"
+#     volume_type = "gp2"
+#     volume_size = var.volume_size
+#   }
+
 #   tags = {
 #     terraform = true
 #   }
 # }
 
+resource "aws_spot_instance_request" "bigbluebutton" {
+
+  ami                             = var.aws_ami
+  instance_type                   = var.instance_type
+  availability_zone               = var.availability_zone
+  key_name                        = var.key_name
+  security_groups                 = [var.security_group_name]
+  spot_price                      = var.spot_price
+  wait_for_fulfillment            = "true"
+  spot_type                       = "one-time"
+  instance_interruption_behaviour = "terminate"
+# user_data = data.template_file.script.rendered
+  tags = {
+    terraform = true
+  }
+}
+
 output "private_ip" {
-  value = aws_instance.bigbluebutton.private_ip
+  value = aws_spot_instance_request.bigbluebutton.private_ip
 }
 
 output "public_ip" {
