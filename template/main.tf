@@ -37,18 +37,18 @@ module "bigbluebutton_instance" {
   gw                  = module.bootstrap.gw
 }
 
-# module "scalelite_instance" {
-#   source = "../modules/scalelite"
+module "scalelite_instance" {
+  source = "../modules/scalelite"
 
-#   key_name            = var.key_name
-#   security_group_name = var.scalelite_security_group_name
-#   instance_type       = var.scalelite_instance_type
-#   aws_ami             = var.scalelite_aws_ami
-#   domain_name         = var.scalelite_domain_name
-#   subdomain_name      = var.scalelite_subdomain_name
-#   volume_size         = var.scalelite_volume_size
-#   secret_key_base     = var.secret_key_base
-#   scalelite_secret    = var.scalelite_secret
-#   scalelite_url       = var.scalelite_url
-#   nginx_ssl           = var.nginx_ssl
-# }
+  key_name            = var.key_name
+  security_group_name = var.scalelite_security_group_name
+  instance_type       = var.scalelite_instance_type
+  aws_ami             = var.scalelite_aws_ami
+  domain_name         = var.scalelite_domain_name
+  subdomain_name      = var.scalelite_subdomain_name
+  volume_size         = var.scalelite_volume_size
+  secret_key_base     = var.secret_key_base
+  scalelite_secret    = var.scalelite_secret
+  scalelite_url       = var.scalelite_url
+  nginx_ssl           = var.nginx_ssl
+}

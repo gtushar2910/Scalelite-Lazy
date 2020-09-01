@@ -69,7 +69,7 @@ resource "aws_spot_instance_request" "bigbluebutton" {
   wait_for_fulfillment            = "true"
   spot_type                       = "one-time"
   instance_interruption_behaviour = "terminate"
-# user_data = data.template_file.script.rendered
+  user_data = data.template_file.script.rendered
   tags = {
     terraform = true
   }
