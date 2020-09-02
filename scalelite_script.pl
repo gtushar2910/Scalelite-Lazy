@@ -12,7 +12,6 @@ echo "LOADBALANCER_SECRET=${scalelite_secret}" >> /scalelite-run/.env
 echo "URL_HOST=${scalelite_url}" >> /scalelite-run/.env
 echo "NGINX_SSL=${nginx_ssl}" >> /scalelite-run/.env
 apt install -y apt-transport-https ca-certificates curl software-properties-common
-
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 apt update
@@ -22,18 +21,16 @@ chmod +x /usr/local/bin/docker-compose
 cd /scalelite-run
 ./init-letsencrypt.sh
 docker-compose up -d
-sleep 15m
 docker exec -i scalelite-api bundle exec rake db:setup
-export url=`https://$bbb_subdomain_name-0.$bbb_domain_name/bigbluebutton/api/`
-docker exec -i scalelite-api bundle exec rake servers:add[$url,${shared_secret}] > test.txt
-export id = `grep "id" test.txt | cut -d " " -f 2`
-docker exec -i scalelite-api bundle exec rake servers:enable[$id]
-export url=`https://$bbb_subdomain_name-1.$bbb_domain_name/bigbluebutton/api/`
-docker exec -i scalelite-api bundle exec rake servers:add[$url,${shared_secret}] > test.txt
-export id = `grep "id" test.txt | cut -d " " -f 2`
-docker exec -i scalelite-api bundle exec rake servers:enable[$id]
-export url=`https://$bbb_subdomain_name-2.$bbb_domain_name/bigbluebutton/api/`
-docker exec -i scalelite-api bundle exec rake servers:add[$url,${shared_secret}] > test.txt
-export id = `grep "id" test.txt | cut -d " " -f 2`
+#sleep 10m
+docker exec -i scalelite-api bundle exec rake servers:add["https://${bbb_subdomain}-0.${bbb_domain}/bigbluebutton/api/",${shared_secret}] > test.txt
+export id=`grep "id" test.txt | cut -d " " -f 2`
 docker exec -i scalelite-api bundle exec rake servers:enable[$id]
 
+docker exec -i scalelite-api bundle exec rake servers:add["https://${bbb_subdomain}-1.${bbb_domain}/bigbluebutton/api/",${shared_secret}] > test.txt
+export id=`grep "id" test.txt | cut -d " " -f 2`
+docker exec -i scalelite-api bundle exec rake servers:enable[$id]
+
+docker exec -i scalelite-api bundle exec rake servers:add["https://${bbb_subdomain}-2.${bbb_domain}/bigbluebutton/api/",${shared_secret}] > test.txt
+export id=`grep "id" test.txt | cut -d " " -f 2`
+docker exec -i scalelite-api bundle exec rake servers:enable[$id]
