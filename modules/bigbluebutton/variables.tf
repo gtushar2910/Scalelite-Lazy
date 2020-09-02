@@ -45,22 +45,18 @@ variable "spot_price"{
   description = "Spot Price"
 }
 
-variable "bbb_nic"{
-  description = "bbb nic"
-}
 
 variable "gw"{
   description = "Gateway"
 }
 
-variable "private_ip_instance"{
-  description = "private_ip_instance"
-}
+
 
 variable "availability_zone" {
   description = "availability_zone"
 }
 
-variable "subnet_id"{
-  description = "subnet_id"
+
+variable "vpc_security_group_id"{
+  description = "vpc_security_group_id"
 }

@@ -23,8 +23,8 @@ resource "aws_route53_record" "bigbluebutton" {
 
 resource "aws_eip" "bigbluebutton" {
   vpc                       = true
-  network_interface         = var.bbb_nic
-  associate_with_private_ip = var.private_ip_instance
+  #network_interface         = var.bbb_nic
+  #associate_with_private_ip = var.private_ip_instance
   depends_on                = [var.gw]
 }
 
@@ -58,21 +58,19 @@ data "template_file" "script" {
 #   }
 # }
 
-resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_spot_instance_request.bigbluebutton.id
-  allocation_id = aws_eip.bigbluebutton.id
-}
-
 resource "aws_spot_instance_request" "bigbluebutton" {
 
-  ami                             = var.aws_ami
-  instance_type                   = var.instance_type
-  availability_zone               = var.availability_zone
-  key_name                        = var.key_name
-  subnet_id                       = var.subnet_id
-  spot_price                      = var.spot_price
-  wait_for_fulfillment            = "true"
-  spot_type                       = "one-time"
+  ami                  = var.aws_ami
+  instance_type        = var.instance_type
+  availability_zone    = var.availability_zone
+  private_ip           = aws_eip.bigbluebutton.private_ip
+  key_name             = var.key_name
+  #subnet_id            = var.subnet_id
+  spot_price           = var.spot_price
+  vpc_security_group_ids = [var.vpc_security_group_id]
+  #security_groups      = [var.security_group_name]
+  wait_for_fulfillment = "false"
+  #spot_type                       = "one-time"
   instance_interruption_behaviour = "terminate"
   user_data                       = data.template_file.script.rendered
   tags = {

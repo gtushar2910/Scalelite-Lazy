@@ -13,7 +13,7 @@ module "bootstrap" {
   source                            = "../modules/bootstrap"
   bigbluebutton_security_group_name = var.bigbluebutton_security_group_name
   scalelite_security_group_name     = var.scalelite_security_group_name
-  private_ip_instances              = var.private_ip_instances
+ # private_ip_instances              = var.private_ip_instances
   subnet_prefix                     = var.subnet_prefix
   availability_zone                 = var.availability_zone
 }
@@ -23,7 +23,7 @@ module "bigbluebutton_instance" {
   count               = var.bigbluebutton_count
   key_name            = var.key_name
   availability_zone   = var.availability_zone
-  subnet_id           = module.bootstrap.subnet_id
+  
   security_group_name = var.bigbluebutton_security_group_name
   instance_type       = var.bigbluebutton_instance_type
   aws_ami             = var.bigbluebutton_aws_ami
@@ -33,9 +33,10 @@ module "bigbluebutton_instance" {
   region              = var.region
   email               = var.email
   spot_price          = var.spot_price
-  bbb_nic             = module.bootstrap.bbb_nic_id
-  private_ip_instance = element(var.private_ip_instances, (count.index))
+  
+  #private_ip_instance = element(var.private_ip_instances, (count.index))
   gw                  = module.bootstrap.gw
+  vpc_security_group_id = module.bootstrap.vpc_security_group_id
 }
 
 module "scalelite_instance" {

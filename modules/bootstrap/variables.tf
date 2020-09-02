@@ -10,10 +10,10 @@ variable "scalelite_security_group_name" {
   default     = "scalelite-security-group"
 }
 
-variable "private_ip_instances"{
-  description = "Privat IP Addresses"
-  type = list(string)
-}
+# variable "private_ip_instances"{
+#   description = "Privat IP Addresses"
+#   type = list(string)
+# }
 
 variable "subnet_prefix"{
   description = "subnet_prefix"
