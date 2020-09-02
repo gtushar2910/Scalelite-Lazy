@@ -12,8 +12,8 @@ provider "aws" {
 module "bigbluebutton_instance" {
   source = "../modules/bigbluebutton"
 
-  count = var.bigbluebutton_count
-
+  count               = var.bigbluebutton_count
+  availability_zone   = var.availability_zone
   key_name            = var.key_name
   security_group_name = var.bigbluebutton_security_group_name
   instance_type       = var.bigbluebutton_instance_type
@@ -23,7 +23,7 @@ module "bigbluebutton_instance" {
   volume_size         = var.bigbluebutton_volume_size
   region              = var.region
   email               = var.email
-  
+
 }
 
 module "scalelite_instance" {

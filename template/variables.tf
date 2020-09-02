@@ -106,3 +106,7 @@ variable "region" {
 variable "spot_price" {
   description = "spot price"
 }
+
+variable "availability_zone"{
+  description = "availability_zone"
+}

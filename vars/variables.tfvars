@@ -11,3 +11,4 @@ secret_key_base = "21c0d02d41f3dcb6c7b56943b9ae5047164193f3fa99eabb38ab196e833eb
 scalelite_secret = "4eb0de98aa83c661a58a30b2f69889ef0096500c1fcf09eb50ed4b854633517b"
 nginx_ssl = "true"
 spot_price = 0.5
+availability_zone = "us-east-1a"
