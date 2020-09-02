@@ -58,15 +58,11 @@ variable "scale_spot_price" {
 }
 
 variable "bbb_subdomain_name" {
-  description = "bbb_subdomain_name"
+  description = "bbb subdomain name"
 }
 
-variable "bbb_domain_name"{
-  description = "Domain Name of BBB"
-}
-
-variable "bbb_secret"{
-  description = "bbb_secret"
+variable "bbb_domain_name" {
+  description = "bbb domain name"
 }
 
 data "aws_route53_zone" "scalelite" {

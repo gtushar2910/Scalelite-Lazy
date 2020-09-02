@@ -24,15 +24,15 @@ cd /scalelite-run
 docker-compose up -d
 sleep 15m
 docker exec -i scalelite-api bundle exec rake db:setup
-export url=`https://${bbb_subdomain_name}-0.${bbb_domain_name}/bigbluebutton/api/`
+export url=`https://$bbb_subdomain_name-0.$bbb_domain_name/bigbluebutton/api/`
 docker exec -i scalelite-api bundle exec rake servers:add[$url,${shared_secret}] > test.txt
 export id = `grep "id" test.txt | cut -d " " -f 2`
 docker exec -i scalelite-api bundle exec rake servers:enable[$id]
-export url=`https://${bbb_subdomain_name}-1.${bbb_domain_name}/bigbluebutton/api/`
+export url=`https://$bbb_subdomain_name-1.$bbb_domain_name/bigbluebutton/api/`
 docker exec -i scalelite-api bundle exec rake servers:add[$url,${shared_secret}] > test.txt
 export id = `grep "id" test.txt | cut -d " " -f 2`
 docker exec -i scalelite-api bundle exec rake servers:enable[$id]
-export url=`https://${bbb_subdomain_name}-2.${bbb_domain_name}/bigbluebutton/api/`
+export url=`https://$bbb_subdomain_name-2.$bbb_domain_name/bigbluebutton/api/`
 docker exec -i scalelite-api bundle exec rake servers:add[$url,${shared_secret}] > test.txt
 export id = `grep "id" test.txt | cut -d " " -f 2`
 docker exec -i scalelite-api bundle exec rake servers:enable[$id]
