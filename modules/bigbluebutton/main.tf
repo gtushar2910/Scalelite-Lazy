@@ -45,6 +45,10 @@ variable "availability_zone"{
   description = "availability_zone"
 }
 
+variable "bbb_spot_price" {
+  description = "bbb_Spot_price"
+}
+
 data "aws_route53_zone" "bigbluebutton" {
   name = var.domain_name
 }
@@ -58,12 +62,18 @@ resource "aws_route53_record" "bigbluebutton" {
 }
 
 resource "aws_eip" "bigbluebutton" {
-  instance = aws_spot_instance_request.bigbluebutton.spot_instance_id
+#  instance = aws_spot_instance_request.bigbluebutton.spot_instance_id
   vpc      = true
-
+  
   tags = {
     terraform = true
   }
+}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_spot_instance_request.bigbluebutton.spot_instance_id
+  allocation_id = aws_eip.bigbluebutton.id
+  depends_on = [aws_spot_instance_request.bigbluebutton,aws_eip.bigbluebutton]
 }
 
 data "template_file" "script" {
@@ -103,7 +113,7 @@ resource "aws_spot_instance_request" "bigbluebutton" {
   availability_zone               = var.availability_zone
   key_name                        = var.key_name
   security_groups                 = [var.security_group_name]
-  spot_price                      = 0.5
+  spot_price                      = var.bbb_spot_price
   wait_for_fulfillment            = "true"
   spot_type                       = "one-time"
   instance_interruption_behaviour = "terminate"

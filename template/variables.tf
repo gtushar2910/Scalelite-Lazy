@@ -103,8 +103,12 @@ variable "region" {
 }
 
 
-variable "spot_price" {
-  description = "spot price"
+variable "bbb_spot_price" {
+  description = "bbb_spot_price "
+}
+
+variable "scale_spot_price" {
+  description = "scale_spot_price "
 }
 
 variable "availability_zone"{
