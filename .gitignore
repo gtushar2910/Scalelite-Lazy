@@ -17,3 +17,6 @@ id_rsa
 access_key
 secret_key
 shared_secret
+secret_key_base
+template/.terraform.tfstate.lock.info
+scalelite_secret_key

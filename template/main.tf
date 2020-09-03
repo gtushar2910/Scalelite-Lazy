@@ -40,8 +40,8 @@ module "scalelite_instance" {
   bbb_domain_name     = var.bigbluebutton_domain_name
   bbb_subdomain_name  = var.bigbluebutton_subdomain_name
   volume_size         = var.scalelite_volume_size
-  secret_key_base     = var.secret_key_base
-  scalelite_secret    = var.scalelite_secret
+  secret_key_base     = file("../secret_key_base")
+  scalelite_secret    = file("../scalelite_secret_key")
   scalelite_url       = var.scalelite_url
   nginx_ssl           = var.nginx_ssl
 }
