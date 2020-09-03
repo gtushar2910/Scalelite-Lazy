@@ -22,7 +22,7 @@ cd /scalelite-run
 ./init-letsencrypt.sh
 docker-compose up -d
 docker exec -i scalelite-api bundle exec rake db:setup
-#sleep 10m
+sleep 10m
 docker exec -i scalelite-api bundle exec rake servers:add["https://${bbb_subdomain}-0.${bbb_domain}/bigbluebutton/api/",${shared_secret}] > test.txt
 export id=`grep "id" test.txt | cut -d " " -f 2`
 docker exec -i scalelite-api bundle exec rake servers:enable[$id]
