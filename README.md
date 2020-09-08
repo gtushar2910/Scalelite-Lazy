@@ -1,8 +1,4 @@
-# bigbluebutton-infra
-
-**Note: This repository is in active development. Contributions are welcomed!**
-
-Automation for BigBlueButton stack. Use Terraform and Ansible to provision one or many bigbluebutton and scalelite servers with just few commands.
+# Scalelite-Lazy
 
 ## Requirements
 
