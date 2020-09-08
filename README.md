@@ -11,8 +11,6 @@
 Adjust configurations:
 
 - [`vars/variables.tfvars`](vars/variables.tfvars)
-- [`vars/inventory`](vars/inventory)
-- [`vars/variables.yaml`](vars/variables.yaml)
 
 ## Infrastructure
 
