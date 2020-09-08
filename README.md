@@ -5,7 +5,6 @@
 - AWS Account
 - Route53 Domain Name and Domain Zone
 - Terraform 13.0+
-- Ansible 2.9+
 
 ## Pre-Install
 
@@ -14,9 +13,6 @@ Adjust configurations:
 - [`vars/variables.tfvars`](vars/variables.tfvars)
 - [`vars/inventory`](vars/inventory)
 - [`vars/variables.yaml`](vars/variables.yaml)
-- [`ansible.cfg`](ansible.cfg)
-
-Note, Ansible inventory has to be adjusted after ec2 provisioning.
 
 ## Infrastructure
 
@@ -51,26 +47,6 @@ Plan and apply your changes, provisionning the resources:
 
 ```sh
 terraform apply -var-file=../vars/variables.tfvars
-```
-
-## Configuration
-
-Install required Ansible roles:
-
-```sh
-ansible-galaxy install nickjj.docker
-```
-
-Run Ansible playbook for bigbluebutton:
-
-```sh
-ansible-playbook playbooks/bigbluebutton.yaml
-```
-
-Run Ansible playbook for scalelite:
-
-```sh
-ansible-playbook playbooks/scalelite.yaml
 ```
 
 ## Post-Install
