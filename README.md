@@ -1,4 +1,4 @@
-# Scalelite-Lazy
+# BigBlueButton Cluster and Scalelite Load Balancer Installation om Amazon Spot Instnaces.
 
 ## Requirements
 
@@ -47,9 +47,15 @@ Plan and apply your changes, provisionning the resources:
 terraform apply -var-file=../vars/variables.tfvars
 ```
 
-## Post-Install
+## Using BigBlueButton servers through Scalelite
 
-Post installation configuration is still pretty much manual. You will need to refer to [scalelite official docs](https://github.com/blindsidenetworks/scalelite#administration) to learn more how to administer your pool.
+Your BigBlueButton servers are now ready to be used. You can use Scalelite with any external application (such as Moodle or Wordpress) by setting its hostname as the BigBlueButton URL and the secret generated (LOADBALANCER_SECRET) during the installation as the BigBlueButton Secret. 
+
+For Example :
+URL: https://scalelite.example.com/bigbluebutton/api/
+Secret: 092ecafe840a125f504e814b83adcd0b298d3f04713d3cfe
+
+## Remove
 
 In case you need to destroy the resources, the process is similar for both [`bootstrap`](bootstrap) and [`template`](template):
 
