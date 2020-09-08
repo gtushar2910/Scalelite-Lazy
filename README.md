@@ -52,7 +52,9 @@ terraform apply -var-file=../vars/variables.tfvars
 Your BigBlueButton servers are now ready to be used. You can use Scalelite with any external application (such as Moodle or Wordpress) by setting its hostname as the BigBlueButton URL and the secret generated (LOADBALANCER_SECRET) during the installation as the BigBlueButton Secret. 
 
 For Example :
-URL: https://scalelite.example.com/bigbluebutton/api/
+
+URL: https://scalelite.example.com/bigbluebutton/api/ 
+
 Secret: 092ecafe840a125f504e814b83adcd0b298d3f04713d3cfe
 
 ## Remove
