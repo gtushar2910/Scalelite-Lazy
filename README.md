@@ -1,4 +1,4 @@
-# BigBlueButton Cluster and Scalelite Load Balancer using Amazon Spot Instnaces.
+# Creating BigBlueButton Servers Cluster and Scalelite Load Balancer using Amazon Spot Instnaces.
 
 ## Requirements
 
