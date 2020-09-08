@@ -33,7 +33,7 @@ Plan and apply your changes, provisionning the resources:
 terraform apply -var-file=../vars/variables.tfvars
 ```
 
-### Provisionin
+### Provisioning
 
 Initiate a new Terraform project in [`template`](template) directory:
 
